@@ -409,75 +409,92 @@
   <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
     /* ================= 1. DATA MODELS ================= */
+    // Default fallback avatar generator if an image fails to load or isn't provided
+    function createAvatar(initials, bg1, bg2) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><defs><linearGradient id="g_${initials}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${bg1}"/><stop offset="100%" stop-color="${bg2}"/></linearGradient></defs><rect width="200" height="200" fill="url(#g_${initials})"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="72" font-weight="bold">${initials}</text></svg>`;
+      return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+    }
+
+    // List of 10 Team Members. Replace 'imageSrc' with your image file path or image URL!
     const teamMembersData = [
       {
         number: 1,
         name: "1. Zi Zun",
         title: "Programmer & Robot Game Team Member",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400",
+        imageSrc: "Zi Zun.jpeg", // <-- REPLACE WITH YOUR IMAGE PATH (e.g. "images/zizun.jpg")
+        fallbackAvatar: createAvatar("ZZ", "#4f46e5", "#a855f7"),
         bio: "Programmer and core member of the Robot Game Team."
       },
       {
         number: 2,
         name: "2. Yu Xuan",
         title: "Programmer & Robot Game Team Member",
-        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400",
+        imageSrc: "Yu Xuan.jpeg", // <-- REPLACE WITH YOUR IMAGE PATH
+        fallbackAvatar: createAvatar("YX", "#06b6d4", "#3b82f6"),
         bio: "Programmer and active member of the Robot Game Team."
       },
       {
         number: 3,
         name: "3. Jyun Yit",
         title: "Robot Holder, Builder & Robot Game Team Member",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
+        imageSrc: "Jyun Yit.jpeg", // <-- REPLACE WITH YOUR IMAGE PATH
+        fallbackAvatar: createAvatar("JY", "#10b981", "#059669"),
         bio: "Robot holder, robot builder, and Robot Game Team member."
       },
       {
         number: 4,
         name: "4. Ken An",
         title: "Robot Holder, Builder & Robot Game Team Member",
-        avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400",
+        imageSrc: "Ken An.jpeg", // <-- REPLACE WITH YOUR IMAGE PATH
+        fallbackAvatar: createAvatar("KA", "#f59e0b", "#d97706"),
         bio: "Robot holder, robot builder, and member of the Robot Game Team."
       },
       {
         number: 5,
         name: "5. Zheng Yang",
         title: "Robot Holder & Project Team Member",
-        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
+        imageSrc: "Zheng Yang.jpeg", // <-- REPLACE WITH YOUR IMAGE PATH
+        fallbackAvatar: createAvatar("ZY", "#ec4899", "#be185d"),
         bio: "Robot holder and dedicated Project Team member."
       },
       {
         number: 6,
         name: "6. Ray Dern",
         title: "Project Team Member",
-        avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&q=80&w=400",
+        imageSrc: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400", // <-- REPLACE WITH YOUR IMAGE PATH
+        fallbackAvatar: createAvatar("RD", "#8b5cf6", "#6d28d9"),
         bio: "Active contributor to Project Team deliverables and initiatives."
       },
       {
         number: 7,
         name: "7. Johnny",
         title: "Project Team Member",
-        avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&q=80&w=400",
+        imageSrc: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=400", // <-- REPLACE WITH YOUR IMAGE PATH
+        fallbackAvatar: createAvatar("JN", "#3b82f6", "#1d4ed8"),
         bio: "Core contributor to Project Team goals."
       },
       {
         number: 8,
         name: "8. Hector",
         title: "Robot Holder, Builder & Project Team Member",
-        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400",
+        imageSrc: "Hector", // <-- REPLACE WITH YOUR IMAGE PATH
+        fallbackAvatar: createAvatar("HC", "#14b8a6", "#0f766e"),
         bio: "Robot holder, builder, and Project Team member."
       },
       {
         number: 9,
         name: "9. Liam O'Connor",
         title: "Lead Frontend Engineer",
-        avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400",
+        imageSrc: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400", // <-- REPLACE WITH YOUR IMAGE PATH
+        fallbackAvatar: createAvatar("LO", "#f97316", "#c2410c"),
         bio: "Liam builds lightning-fast web apps with web components, single-file applications, and modern animations."
       },
       {
         number: 10,
         name: "10. Maya Lin",
         title: "Community & Developer Advocate Lead",
-        avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=400",
+        imageSrc: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400", // <-- REPLACE WITH YOUR IMAGE PATH
+        fallbackAvatar: createAvatar("ML", "#6366f1", "#4338ca"),
         bio: "Maya connects our engineering team with the global developer community through hackathons and outreach."
       }
     ];
@@ -556,6 +573,8 @@
         const card = document.createElement('div');
         card.className = "bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between cursor-pointer group relative";
 
+        const photoUrl = m.imageSrc || m.fallbackAvatar;
+
         card.innerHTML = `
           <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center text-sm shadow-md group-hover:scale-110 transition-transform">
             #${m.number}
@@ -563,7 +582,12 @@
 
           <div class="space-y-4">
             <div class="flex items-center gap-4">
-              <img src="${m.avatar}" alt="${m.name}" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-brand-500/20 group-hover:ring-brand-500 transition-all" />
+              <img 
+                src="${photoUrl}" 
+                alt="${m.name}" 
+                onerror="this.onerror=null; this.src='${m.fallbackAvatar}';" 
+                class="w-16 h-16 rounded-2xl object-cover ring-2 ring-brand-500/20 group-hover:ring-brand-500 transition-all" 
+              />
               <div>
                 <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                   ${m.name}
@@ -591,7 +615,10 @@
       teamModalBadge.textContent = `#${m.number}`;
       teamModalName.textContent = m.name;
       teamModalTitle.textContent = m.title;
-      teamModalAvatar.src = m.avatar;
+      teamModalAvatar.src = m.imageSrc || m.fallbackAvatar;
+      teamModalAvatar.onerror = function() {
+        this.src = m.fallbackAvatar;
+      };
       teamModalBio.textContent = m.bio;
 
       teamModal.classList.remove('hidden');
