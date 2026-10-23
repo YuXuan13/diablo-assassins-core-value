@@ -149,7 +149,7 @@
       </div>
 
       <!-- Team Roster Cards Grid -->
-      <div id="teamGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div id="teamGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Rendered dynamically via JS -->
       </div>
 
@@ -407,7 +407,7 @@
     let currentFilter = 'all';
     let currentSearch = '';
 
-    // Render Function for Team Grid Cards
+    // Render Function for Team Grid Cards matching the custom layout image
     function renderTeamMembers() {
       const teamGrid = document.getElementById('teamGrid');
       teamGrid.innerHTML = '';
@@ -430,34 +430,52 @@
 
       filtered.forEach(member => {
         const card = document.createElement('div');
-        card.className = 'group relative bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 transition duration-300 flex flex-col justify-between';
+        card.className = 'group bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-red-500/50 transition duration-300 flex flex-col sm:flex-row shadow-xl';
         
+        // Left Column: Large Image / Initial Avatar Block
         const avatarHtml = member.imageSrc ? `
-          <img src="${member.imageSrc}" alt="${member.name}" class="w-28 h-28 rounded-2xl object-cover border-2 border-slate-700 shadow-lg flex-shrink-0" onError="this.onerror=null; this.parentNode.innerHTML='<div class=\'w-28 h-28 rounded-2xl bg-gradient-to-br ${member.bgGradient} flex items-center justify-center text-white font-extrabold text-3xl shadow-lg flex-shrink-0\'>${member.initials}</div>';">
+          <div class="w-full sm:w-48 md:w-56 h-56 sm:h-auto flex-shrink-0 relative overflow-hidden bg-slate-800">
+            <img src="${member.imageSrc}" alt="${member.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onError="this.onerror=null; this.parentNode.innerHTML='<div class=\'w-full sm:w-48 md:w-56 h-56 sm:h-full bg-gradient-to-br ${member.bgGradient} flex items-center justify-center text-white font-black text-4xl flex-shrink-0 shadow-inner\'>${member.initials}</div>';">
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold bg-slate-950/80 text-red-400 border border-red-500/30">${member.number}</span>
+          </div>
         ` : `
-          <div class="w-28 h-28 rounded-2xl bg-gradient-to-br ${member.bgGradient} flex items-center justify-center text-white font-extrabold text-3xl shadow-lg flex-shrink-0">
-            ${member.initials}
+          <div class="w-full sm:w-48 md:w-56 h-56 sm:h-full bg-gradient-to-br ${member.bgGradient} flex items-center justify-center text-white font-black text-4xl flex-shrink-0 relative shadow-inner">
+            <span>${member.initials}</span>
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold bg-slate-950/80 text-red-400 border border-red-500/30">${member.number}</span>
           </div>
         `;
 
+        // Right Column: Quote icon + Bio + Name + Department/Action
         card.innerHTML = `
-          <div>
-            <div class="flex items-start justify-between mb-5">
-              ${avatarHtml}
-              <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">${member.number}</span>
+          ${avatarHtml}
+          <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between bg-slate-900/90">
+            <div>
+              <!-- Red Quote Icon -->
+              <div class="text-red-500 text-3xl font-black leading-none mb-3 select-none">
+                &#8220;&#8220;
+              </div>
+
+              <!-- Member Bio Description -->
+              <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-normal mb-6">
+                ${member.bio}
+              </p>
             </div>
-            <div class="mb-4">
-              <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition">${member.name}</h3>
-              <p class="text-xs text-indigo-400 font-medium mt-1 leading-snug">${member.role}</p>
+
+            <!-- Bottom Member Info Bar -->
+            <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+              <div>
+                <h3 class="text-sm font-extrabold text-white uppercase tracking-wider group-hover:text-red-400 transition">
+                  ${member.name}
+                </h3>
+                <p class="text-xs text-indigo-400 font-medium mt-0.5">${member.role}</p>
+              </div>
+
+              <button onclick="openModal(${member.id})" aria-label="View profile" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </button>
             </div>
-            <p class="text-slate-400 text-sm mb-6 line-clamp-2">${member.bio}</p>
-          </div>
-          <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs">
-            <span class="text-slate-400 font-semibold uppercase tracking-wider">${member.department}</span>
-            <button onclick="openModal(${member.id})" class="text-indigo-400 hover:text-indigo-300 font-semibold inline-flex items-center space-x-1">
-              <span>View Profile</span>
-              <span>&rarr;</span>
-            </button>
           </div>
         `;
         teamGrid.appendChild(card);
