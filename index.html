@@ -579,8 +579,19 @@
     });
 
     /* ================= 5. INITIALIZATION ================= */
-    window.addEventListener('DOMContentLoaded', () => {
+    // Execute immediately and on load events to ensure cards render in all environments
+    renderTeamMembers();
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initTheme();
+        renderTeamMembers();
+      });
+    } else {
       initTheme();
+    }
+
+    window.addEventListener('load', () => {
       renderTeamMembers();
     });
   </script>
