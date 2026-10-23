@@ -310,7 +310,7 @@
       </button>
 
       <div class="flex items-center space-x-4 mb-6">
-        <div id="modalAvatar" class="w-16 h-16 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-bold text-xl overflow-hidden"></div>
+        <div id="modalAvatar" class="w-20 h-20 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-extrabold text-2xl overflow-hidden flex-shrink-0"></div>
         <div>
           <h3 id="modalName" class="text-2xl font-bold text-white"></h3>
           <p id="modalRole" class="text-indigo-400 text-sm font-medium"></p>
@@ -491,9 +491,9 @@
         card.className = 'group relative bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 transition duration-300 flex flex-col justify-between';
         
         const avatarHtml = member.imageSrc ? `
-          <img src="${member.imageSrc}" alt="${member.name}" class="w-12 h-12 rounded-xl object-cover border border-slate-700" onError="this.onerror=null; this.parentNode.innerHTML='<div class=\'w-12 h-12 rounded-xl bg-gradient-to-br ${member.bgGradient} flex items-center justify-center text-white font-bold text-sm shadow-md\'>${member.initials}</div>';">
+          <img src="${member.imageSrc}" alt="${member.name}" class="w-20 h-20 rounded-2xl object-cover border border-slate-700 shadow-md flex-shrink-0" onError="this.onerror=null; this.parentNode.innerHTML='<div class=\'w-20 h-20 rounded-2xl bg-gradient-to-br ${member.bgGradient} flex items-center justify-center text-white font-extrabold text-xl shadow-md flex-shrink-0\'>${member.initials}</div>';">
         ` : `
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-br ${member.bgGradient} flex items-center justify-center text-white font-bold text-sm shadow-md">
+          <div class="w-20 h-20 rounded-2xl bg-gradient-to-br ${member.bgGradient} flex items-center justify-center text-white font-extrabold text-xl shadow-md flex-shrink-0">
             ${member.initials}
           </div>
         `;
@@ -501,11 +501,11 @@
         card.innerHTML = `
           <div>
             <div class="flex items-start justify-between mb-4">
-              <div class="flex items-center space-x-3">
+              <div class="flex items-center space-x-4">
                 ${avatarHtml}
                 <div>
-                  <h3 class="text-lg font-bold text-white group-hover:text-indigo-400 transition">${member.name}</h3>
-                  <p class="text-xs text-indigo-400 font-medium">${member.role}</p>
+                  <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition">${member.name}</h3>
+                  <p class="text-xs text-indigo-400 font-medium mt-1 leading-snug">${member.role}</p>
                 </div>
               </div>
               <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">${member.number}</span>
@@ -538,7 +538,7 @@
       if (member.imageSrc) {
         avatarContainer.innerHTML = `<img src="${member.imageSrc}" class="w-full h-full object-cover">`;
       } else {
-        avatarContainer.className = `w-16 h-16 rounded-2xl bg-gradient-to-br ${member.bgGradient} flex items-center justify-center text-white font-bold text-xl overflow-hidden`;
+        avatarContainer.className = `w-20 h-20 rounded-2xl bg-gradient-to-br ${member.bgGradient} flex items-center justify-center text-white font-extrabold text-2xl overflow-hidden flex-shrink-0`;
         avatarContainer.textContent = member.initials;
       }
 
